@@ -73,6 +73,8 @@ def fast_heston(maturity, moneyness, strike, ticker):
         params = [0.1161, 0.048, 0.048, 26.3169, -0.5891, 0.5851]
     elif ticker == 'GOOGL':
         params = [0.1824, 0.048, 0.0756, 39.7622, -0.3923, 0.8]
+    elif ticker == 'AMZN:
+        params = [0.1636, 0.048, 0.0819, 35.3728, -0.5614, 0.8]
     else:
         return 'Company information does not exist!'
     x = np.array([moneyness, maturity, strike] + params)
