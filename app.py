@@ -101,17 +101,6 @@ def index():
         # Handle GET request (show the form to the user)
         return render_template("index.html")
 
-@app.route('/compute', methods=['POST'])
-def compute():
-    company = request.form.get("Company")
-    maturity = float(request.form.get("Time to Maturity"))
-    moneyness = float(request.form.get("Moneyness"))
-    strike = float(request.form.get("Strike"))
-    res = fast_heston(maturity, moneyness, strike, company)
-    render_template("result.html", result=res)
-
-
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
