@@ -117,7 +117,7 @@ def index():
         P, D = fast_heston(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
-        return render_template("result.html", price=np.round(P,2), delta=np.round(D,2))
+        return render_template("result.html", price=np.round(P,2), delta=np.round(D,5))
     else:
         # Handle GET request (show the form to the user)
         return render_template("index.html")
