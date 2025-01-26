@@ -94,9 +94,18 @@ def index():
         return render_template("result.html", result=result)
     else:
         company = request.args.get("Company")  
-        maturity = float(request.args.get("Time to Maturity")) 
-        moneyness = float(request.args.get("Moneyness")) 
-        strike = float(request.args.get("Strike")) 
+        maturity = request.args.get("Time to Maturity")
+        moneyness = request.args.get("Moneyness")
+        strike = request.args.get("Strike")
+        if not company or not maturity or not moneyness or not strike:
+            return "Error: Missing required parameters.", 400
+        
+        try:
+            maturity = float(maturity)
+            moneyness = float(moneyness)
+            strike = float(strike)
+        except ValueError:
+            return "Error: Invalid input format.", 400
     
     result = np.round(fast_heston(maturity, moneyness, strike, company),3)
     return render_template("result.html", result=result)
