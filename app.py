@@ -73,7 +73,7 @@ def heston_surrogate(x, n = 100):
     res = np.sum(heston_call(x, M = n)*z_coeff)
     return res
 
-def fast_heston(maturity, moneyness, strike, ticker):
+def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
     if ticker == 'AAPL':
         params = [0.0843, 0.046, 0.0438, 6.3848, -0.5597, 0.5308]
     elif ticker == 'AMD':
@@ -86,8 +86,11 @@ def fast_heston(maturity, moneyness, strike, ticker):
         params = [0.0446, 0.046, 0.0632, 0.9824, -0.0415, 0.3024]
     else:
         return 'Company information not available!'
+    spot = strike/(1-moneyness)
+    delta_moneyness = delta/spot
     x = np.array([moneyness, maturity, strike] + params)
-    return heston_surrogate(x)
+    x_delta = np.array([moneyness + delta_moneyness, maturity, strike] + params)
+    return heston_surrogate(x), (heston_surrogate(x_delta) - heston_surrogate(x))/delta
 
 
 def count_us_trading_days(start_date, end_date):
@@ -111,7 +114,7 @@ def index():
         today_date = datetime.strptime(today, "%Y-%m-%d")
         maturity_date = datetime.strptime(maturity, "%Y-%m-%d")
         time_to_maturity = count_us_trading_days(today_date, maturity_date)/252
-        result = np.round(fast_heston(time_to_maturity, moneyness, strike, company), 2)
+        result = fast_heston(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
         return render_template("result.html", result=result)
