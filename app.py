@@ -83,6 +83,10 @@ def fast_heston(maturity, moneyness, strike, ticker):
     
 
 # Create an API endpoint
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/compute', methods=['POST'])
 def compute():
     data = request.get_json() 
@@ -91,7 +95,7 @@ def compute():
     y = data.get("Moneyness", 0)
     z = data.get("Strike", 0)
     res = fast_heston(x, y, z, c)
-    return jsonify({"Estimated Euro Call Price": res})  
+    return render_template('result.html', result=res) 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
