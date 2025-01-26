@@ -92,7 +92,7 @@ def index():
         strike = float(request.form.get("Strike"))
         result = fast_heston(maturity, moneyness, strike, company)
         return render_template("result.html", result=result)
-    else request.method == "GET":
+    else:
         company = request.args.get("Company")  
         maturity = float(request.args.get("Time to Maturity")) 
         moneyness = float(request.args.get("Moneyness")) 
