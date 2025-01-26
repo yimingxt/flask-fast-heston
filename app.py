@@ -104,7 +104,7 @@ def index():
         
         # Call your function with the extracted data
         time_to_maturity = count_us_trading_days(today, maturity)
-        result = fast_heston(time_to_maturity, moneyness, strike, company)
+        result = np.round(fast_heston(time_to_maturity, moneyness, strike, company), 2)
         
         # Return the result to the user
         return render_template("result.html", result=result)
