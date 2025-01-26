@@ -89,7 +89,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
     delta_moneyness = delta/spot
     x = np.array([moneyness, maturity, strike] + params)
     x_delta = np.array([moneyness + delta_moneyness, maturity, strike] + params)
-    return np.mean(heston_call(x, M = size_max[0])), (heston_call(x_delta, M = size_max[0]) - heston_call(x, M = size_max[0]))/delta
+    return np.mean(heston_call(x, M = size_max[0])), np.mean((heston_call(x_delta, M = size_max[0]) - heston_call(x, M = size_max[0]))/delta)
 
 
 def count_us_trading_days(start_date, end_date):
