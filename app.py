@@ -106,7 +106,7 @@ def index():
         company = request.form.get("Company")
         today = request.form.get("Date of Today")
         maturity = request.form.get("Maturity")
-        moneyness = float(request.form.get("Moneyness"))
+        moneyness = float(request.form.get("Moneyness"))/100
         strike = float(request.form.get("Strike"))
         
         # Call your function with the extracted data
