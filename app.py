@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from flask import Flask, request, jsonify
 
 
@@ -83,6 +84,10 @@ def fast_heston(maturity, moneyness, strike, ticker):
 
 # Create an API endpoint
 @app.route('/compute', methods=['POST'])
+
+def index():
+    return "Service is running!"
+
 def compute():
     data = request.get_json() 
     c = data.get("Company", 'AAPL')  
@@ -93,4 +98,5 @@ def compute():
     return jsonify({"Estimated Euro Call Price": res})  
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
