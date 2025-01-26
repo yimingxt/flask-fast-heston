@@ -92,14 +92,14 @@ def index():
         strike = float(request.form.get("Strike"))
         result = fast_heston(maturity, moneyness, strike, company)
         return render_template("result.html", result=result)
-    elif request.method == "GET":
-        company = request.args.get("Company", 'AAPL')  # Default to AAPL if not provided
-        maturity = float(request.args.get("Time to Maturity", 0.5))  # Default to 0.5 if not provided
-        moneyness = float(request.args.get("Moneyness", 0))  # Default to 0 if not provided
-        strike = float(request.args.get("Strike", 100))  # Default to 100 if not provided
-        result = fast_heston(maturity, moneyness, strike, company)
-        return render_template("result.html", result=result)
-    return render_template("index.html")
+    else request.method == "GET":
+        company = request.args.get("Company")  
+        maturity = float(request.args.get("Time to Maturity")) 
+        moneyness = float(request.args.get("Moneyness")) 
+        strike = float(request.args.get("Strike")) 
+    
+    result = np.round(fast_heston(maturity, moneyness, strike, company),3)
+    return render_template("result.html", result=result)
 
 
 if __name__ == "__main__":
