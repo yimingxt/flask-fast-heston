@@ -1,6 +1,9 @@
 import numpy as np
 import os
+import pandas as pd
 from flask import Flask, request, jsonify, render_template
+from pandas.tseries.offsets import CustomBusinessDay
+from pandas.tseries.holiday import USFederalHolidayCalendar
 
 
 app = Flask(__name__)
@@ -80,6 +83,12 @@ def fast_heston(maturity, moneyness, strike, ticker):
         return 'Company information does not exist!'
     x = np.array([moneyness, maturity, strike] + params)
     return heston_surrogate(x)
+
+
+def count_us_trading_days(start_date, end_date):
+    us_bd = CustomBusinessDay(calendar=USFederalHolidayCalendar())
+    trading_days = pd.date_range(start=start_date, end=end_date, freq=us_bd)
+    return len(trading_days)
     
 
 # Create an API endpoint
@@ -88,12 +97,14 @@ def index():
     if request.method == "POST":
         # Extract form data from POST request
         company = request.form.get("Company")
-        maturity = float(request.form.get("Time to Maturity"))
+        today = request.form.get("Date of Today")
+        maturity = request.form.get("Maturity")
         moneyness = float(request.form.get("Moneyness"))
         strike = float(request.form.get("Strike"))
         
         # Call your function with the extracted data
-        result = fast_heston(maturity, moneyness, strike, company)
+        time_to_maturity = count_us_trading_days(today, maturity)
+        result = fast_heston(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
         return render_template("result.html", result=result)
