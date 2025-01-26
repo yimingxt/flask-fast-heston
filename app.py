@@ -86,29 +86,19 @@ def fast_heston(maturity, moneyness, strike, ticker):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        company = request.form.get("Company")
-        maturity = float(request.form.get("Time to Maturity"))
-        moneyness = float(request.form.get("Moneyness"))
-        strike = float(request.form.get("Strike"))
-        result = fast_heston(maturity, moneyness, strike, company)
-        return render_template("result.html", result=result)
-    else:
-        company = request.args.get("Company")  
-        maturity = request.args.get("Time to Maturity")
-        moneyness = request.args.get("Moneyness")
-        strike = request.args.get("Strike")
-        if not company or not maturity or not moneyness or not strike:
-            return "Error: Missing required parameters.", 400
-        
+        company = request.form.get("Company")  
         try:
-            maturity = float(maturity)
-            moneyness = float(moneyness)
-            strike = float(strike)
+            maturity = float(request.form.get("Time_to_Maturity"))  
+            moneyness = float(request.form.get("Moneyness"))  
+            strike = float(request.form.get("Strike")) 
         except ValueError:
-            return "Error: Invalid input format.", 400
-    
-    result = np.round(fast_heston(maturity, moneyness, strike, company),3)
-    return render_template("result.html", result=result)
+            return "Error: Invalid input format. Please make sure all fields contain valid numbers.", 400
+        # If inputs are valid, compute result
+        result = fast_heston(maturity, moneyness, strike, company)
+        return render_template("result.html", result=result)  # Render result page with the calculated value
+
+    # Render the input form if it's a GET request
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
