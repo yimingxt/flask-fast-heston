@@ -87,7 +87,7 @@ def fast_heston(maturity, moneyness, strike, ticker):
     elif ticker == 'MSFT':
         params = [0.0446, 0.046, 0.0632, 0.9824, -0.0415, 0.3024]
     else:
-        return 'Company information does not exist!'
+        return 'Company information not available!'
     x = np.array([moneyness, maturity, strike] + params)
     return heston_surrogate(x)
 
