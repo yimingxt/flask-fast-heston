@@ -84,10 +84,6 @@ def fast_heston(maturity, moneyness, strike, ticker):
 
 # Create an API endpoint
 @app.route('/compute', methods=['POST'])
-
-def index():
-    return "Service is running!"
-
 def compute():
     data = request.get_json() 
     c = data.get("Company", 'AAPL')  
