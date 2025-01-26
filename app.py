@@ -114,10 +114,10 @@ def index():
         today_date = datetime.strptime(today, "%Y-%m-%d")
         maturity_date = datetime.strptime(maturity, "%Y-%m-%d")
         time_to_maturity = count_us_trading_days(today_date, maturity_date)/252
-        result = fast_heston(time_to_maturity, moneyness, strike, company)
+        P, D = fast_heston(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
-        return render_template("result.html", result=result)
+        return render_template("result.html", price=np.round(P,2), Delta=np.round(D,2))
     else:
         # Handle GET request (show the form to the user)
         return render_template("index.html")
