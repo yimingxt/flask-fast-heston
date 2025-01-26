@@ -86,19 +86,20 @@ def fast_heston(maturity, moneyness, strike, ticker):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        company = request.form.get("Company")  
-        try:
-            maturity = float(request.form.get("Time_to_Maturity"))  
-            moneyness = float(request.form.get("Moneyness"))  
-            strike = float(request.form.get("Strike")) 
-        except ValueError:
-            return "Error: Invalid input format. Please make sure all fields contain valid numbers.", 400
-        # If inputs are valid, compute result
+        # Extract form data from POST request
+        company = request.form.get("Company")
+        maturity = float(request.form.get("Time to Maturity"))
+        moneyness = float(request.form.get("Moneyness"))
+        strike = float(request.form.get("Strike"))
+        
+        # Call your function with the extracted data
         result = fast_heston(maturity, moneyness, strike, company)
-        return render_template("result.html", result=result)  # Render result page with the calculated value
-    result = fast_heston(maturity, moneyness, strike, company)
-    # Render the input form if it's a GET request
-    return render_template("index.html", result=result)
+        
+        # Return the result to the user
+        return render_template("result.html", result=result)
+    else:
+        # Handle GET request (show the form to the user)
+        return render_template("index.html")
 
 
 if __name__ == "__main__":
