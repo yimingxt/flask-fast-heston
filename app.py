@@ -96,9 +96,9 @@ def index():
         # If inputs are valid, compute result
         result = fast_heston(maturity, moneyness, strike, company)
         return render_template("result.html", result=result)  # Render result page with the calculated value
-
+    result = fast_heston(maturity, moneyness, strike, company)
     # Render the input form if it's a GET request
-    return render_template("index.html")
+    return render_template("index.html", result=result)
 
 
 if __name__ == "__main__":
