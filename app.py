@@ -2,6 +2,7 @@ import numpy as np
 import os
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
+from datetime import datetime
 from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.holiday import USFederalHolidayCalendar
 
@@ -103,7 +104,9 @@ def index():
         strike = float(request.form.get("Strike"))
         
         # Call your function with the extracted data
-        time_to_maturity = count_us_trading_days(today, maturity)
+        today_date = datetime.strptime(today, "%Y-%m-%d")
+        maturity_date = datetime.strptime(maturity, "%Y-%m-%d")
+        time_to_maturity = count_us_trading_days(today_date, maturity_date)
         result = np.round(fast_heston(time_to_maturity, moneyness, strike, company), 2)
         
         # Return the result to the user
