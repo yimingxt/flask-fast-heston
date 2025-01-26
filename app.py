@@ -92,6 +92,7 @@ def index():
         strike = float(request.form.get("Strike"))
         result = fast_heston(maturity, moneyness, strike, company)
         return render_template("result.html", result=result)
+    return render_template("index.html")
 
 # @app.route('/compute', methods=['POST'])
 # def compute():
