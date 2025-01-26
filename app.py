@@ -83,19 +83,25 @@ def fast_heston(maturity, moneyness, strike, ticker):
     
 
 # Create an API endpoint
-@app.route('/')
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template('index.html')
+    if request.method == "POST":
+        company = request.form.get("Company")
+        maturity = float(request.form.get("Time to Maturity"))
+        moneyness = float(request.form.get("Moneyness"))
+        strike = float(request.form.get("Strike"))
+        result = fast_heston(maturity, moneyness, strike, company)
+        return render_template("result.html", result=result)
 
-@app.route('/compute', methods=['POST'])
-def compute():
-    data = request.get_json() 
-    c = data.get("Company", 'AAPL')  
-    x = data.get("Time to Maturity", 0.5)  
-    y = data.get("Moneyness", 0)
-    z = data.get("Strike", 0)
-    res = fast_heston(x, y, z, c)
-    return render_template('result.html', result=res) 
+# @app.route('/compute', methods=['POST'])
+# def compute():
+#     data = request.get_json() 
+#     c = data.get("Company", 'AAPL')  
+#     x = data.get("Time to Maturity", 0.5)  
+#     y = data.get("Moneyness", 0)
+#     z = data.get("Strike", 0)
+#     res = fast_heston(x, y, z, c)
+#     return render_template('result.html', result=res) 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
