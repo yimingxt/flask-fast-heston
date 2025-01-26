@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fast approximate real-time option price calculator based on Heston models</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Real-Time Euro Call Pricer (Heston)</title>
 </head>
 <body>
-    <h1>Heston Model Calculator</h1>
-    <form action="/compute" method="POST">
+    <h1>Option Price Calculation</h1>
+    <form method="POST">
         <label for="Company">Company:</label>
-        <select id="Company" name="Company">
-            <option value="AAPL">AAPL</option>
-            <option value="GOOGL">GOOGL</option>
-            <option value="AMZN">AMZN</option>
-        </select>
-        <br><br>
-        
+        <input type="text" id="Company" name="Company" required><br><br>
+
         <label for="Time_to_Maturity">Time to Maturity (in years):</label>
-        <input type="number" step="0.01" id="Time_to_Maturity" name="Time_to_Maturity" required>
-        <br><br>
-        
+        <input type="text" id="Time to Maturity" name="Time to Maturity" required><br><br>
+
         <label for="Moneyness">Moneyness ((spot-strike)/spot):</label>
-        <input type="number" step="0.01" id="Moneyness" name="Moneyness" required>
-        <br><br>
-        
+        <input type="text" id="Moneyness" name="Moneyness" required><br><br>
+
         <label for="Strike">Strike Price:</label>
-        <input type="number" step="0.01" id="Strike" name="Strike" required>
-        <br><br>
-        
-        <button type="submit">Compute</button>
+        <input type="text" id="Strike" name="Strike" required><br><br>
+
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
