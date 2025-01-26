@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Approximate real-time option price calculator based on Heston model</title>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <h1>Approximate Euro call pricer calculator</h1>
@@ -24,9 +26,7 @@
         
         <label for="Moneyness">
             Moneyness: 
-            <span id="math-moneyness">
-                \( \frac{\text{spot} - \text{strike}}{\text{spot}} \)
-            </span>
+            <span>$$\frac{\text{spot} - \text{strike}}{\text{spot}}$$</span>
         </label>
         <input type="number" step="0.001" id="Moneyness" name="Moneyness" required>
         <br><br>
