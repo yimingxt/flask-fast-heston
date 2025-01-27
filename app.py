@@ -69,7 +69,7 @@ def heston_surrogate(x, n = 100):
                    3.98692079e-13, 1.79850238e-13, 0.00000000e+00, 2.94107579e-02,
                    8.50476894e-03, 5.31827543e-03, 1.27707673e-13, 9.35386761e-03,
                    5.03294503e-13, 2.79718567e-02, 8.20467865e-03, 1.66868600e-02])
-    res = np.sum(heston_call(x, M = n)*z_coeff)
+    res = np.sum(heston_call(x, M = n)*z_coef)
     return res
 
 def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
