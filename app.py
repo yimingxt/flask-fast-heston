@@ -82,7 +82,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     elif ticker == 'GOOGL':
         params = [0.1245, 0.043, 0.0686, 7.0206, -0.1578, 0.796]
     elif ticker == 'META':
-        params = []
+        params = [0.1839, 0.043, 0.1214, 14.9241, 0.7659, 0.4687]
     elif ticker == 'MSFT':
         params = [0.0518, 0.043, 0.0455, 7.2704, -0.1999, 0.6112]
     elif ticker == 'NVDA':
