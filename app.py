@@ -88,7 +88,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     elif ticker == 'NVDA':
         params = [0.2214, 0.043, 0.1958, 1.1037, 0.9, 0.212]
     elif ticker == 'TSLA':
-        params = []
+        params = [0.3951, 0.043, 0.3171, 10.6073, 0.8928, 1.0395]
     else:
         return 'Company information not available!'
     spot = strike/(1-moneyness)
