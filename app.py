@@ -77,7 +77,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
     elif ticker == 'MSFT':
         params = [0.0466, 0.045, 0.0504, 2.9866, -0.95, 0.137]
     elif ticker == 'NVDA':
-        params = [0.2214, 0.043, 0.1958, 1.1037, 0.9, 0.212]
+        params = [0.1791, 0.045, 0.2197, 37.1974, -0.8148, 0.8852]
     elif ticker == 'TSLA':
         params = [0.3951, 0.043, 0.3171, 10.6073, 0.8928, 1.0395]
     else:
