@@ -9,10 +9,10 @@ from pandas.tseries.holiday import USFederalHolidayCalendar
 
 app = Flask(__name__)
 
-size_max = (100000, 252)
-np.random.seed(321)
+size_max = (50000, 252)
+np.random.seed(10)
 z1_seed = np.random.normal(size=size_max)
-np.random.seed(365)
+np.random.seed(23)
 z2_seed = np.random.normal(size=size_max)
 
 def heston_call(x, dt = 1/252, M = 1, crn = True, div = 0.0):
