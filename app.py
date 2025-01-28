@@ -70,16 +70,14 @@ def heston_surrogate(x, n = 100):
 def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
     if ticker == 'AAPL':
         params = [0.1007, 0.044, 0.01, 4.0345, -0.95, 0.144]
-    elif ticker == 'AMD':
-        params = [0.2585, 0.043, 0.1761, 7.7102, 0.2663, 0.6555]
     elif ticker == 'AMZN':
-        params = [0.1283, 0.043, 0.0777, 7.2155, -0.3203, 0.9691]
+        params = [0.1103, 0.045, 0.0868, 5.0093, -0.95, 0.3334]
     elif ticker == 'GOOGL':
-        params = [0.1245, 0.043, 0.0686, 7.0206, -0.1578, 0.796]
+        params = [0.2244, 0.045, 0.0692, 40.931, -0.5849, 0.7488]
     elif ticker == 'META':
         params = [0.1839, 0.043, 0.1214, 14.9241, 0.7659, 0.4687]
     elif ticker == 'MSFT':
-        params = [0.0518, 0.043, 0.0455, 7.2704, -0.1999, 0.6112]
+        params = [0.0466, 0.045, 0.0504, 2.9866, -0.95, 0.137]
     elif ticker == 'NVDA':
         params = [0.2214, 0.043, 0.1958, 1.1037, 0.9, 0.212]
     elif ticker == 'TSLA':
