@@ -1,44 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Approximate real-time option price calculator</title>
+    <title>Approximate Real-Time Option Price Calculator</title>
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Background and Font */
+        body {
+            background: #f5f5dc; /* Beige Background */
+            color: #5a5a5a; /* Soft Dark Gray Text */
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        /* Title Styling */
+        .form-container h1 {
+            font-size: 1.5rem; /* Smaller Title */
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #4a4a4a;
+            text-transform: uppercase;
+            border-bottom: 1px solid #bdb76b; /* Muted Gold Border */
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* Labels */
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #6a6a6a;
+            text-align: left;
+        }
+
+        /* Inputs and Selects */
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            background: #fff5e1; /* Soft Beige Input Background */
+            color: #4a4a4a;
+            outline: none;
+            border: 1px solid #d3c7a6;
+        }
+
+        input:focus, select:focus {
+            border: 1px solid #bdb76b;
+            background: #fdf7e3;
+        }
+
+        /* Button */
+        button {
+            background: #bdb76b; /* Muted Gold */
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #a89f58;
+        }
+
+        /* Helper Text for Moneyness */
+        #moneyness-latex {
+            display: block;
+            font-size: 0.85rem;
+            color: #8c7b4a;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Approximate Euro call price calculator</h1>
-    <form action="/" method="POST">
-        <label for="Company">Company:</label>
-        <select id="Company" name="Company">
-            <option value="AAPL">AAPL</option>
-            <option value="AMZN">AMZN</option>
-            <option value="GOOGL">GOOGL</option>
-            <option value="MSFT">MSFT</option>
-            <option value="NVDA">NVDA</option>
-        </select>
-        <br><br>
+    <div class="form-container">
+        <h1>Option Price Calculator</h1>
+        <form action="/" method="POST">
+            <label for="Company">Company:</label>
+            <select id="Company" name="Company">
+                <option value="AAPL">AAPL</option>
+                <option value="AMZN">AMZN</option>
+                <option value="GOOGL">GOOGL</option>
+                <option value="MSFT">MSFT</option>
+                <option value="NVDA">NVDA</option>
+            </select>
 
-        <label for="Date of Today">Date of Today:</label>
-        <input type="date" id="Date of Today" name="Date of Today" required>
-        <br><br>
+            <label for="Date of Today">Date of Today:</label>
+            <input type="date" id="Date of Today" name="Date of Today" required>
 
-        <label for="Market Hour">Market Hour (9:30 - 16:00):</label>
-        <input type="number" id="Market Hour" name="Market Hour" step="0.5" min="9.5" max="16.0" required>
-        <br><br>
-        
-        <label for="Maturity">Maturity:</label>
-        <input type="date" id="Maturity" name="Maturity" required>
-        <br><br>
-        
-        <label for="Strike">Strike Price:</label>
-        <input type="number" step="0.0001" id="Strike" name="Strike" required>
-        <br><br>
+            <label for="Market Hour">Market Hour (9:30 - 16:00):</label>
+            <input type="number" id="Market Hour" name="Market Hour" step="0.5" min="9.5" max="16.0" required>
 
-        <label for="Moneyness">Moneyness: <span id="moneyness-latex">$$\frac{\text{Current Price} - \text{Strike Price}}{\text{Current Price}}\times 100$$</span></label>
-        <input type="number" step="0.0001" id="Moneyness" name="Moneyness" required>
-        <br><br>
-        
-        <button type="submit">Compute</button>
-    </form>
+            <label for="Maturity">Maturity:</label>
+            <input type="date" id="Maturity" name="Maturity" required>
+
+            <label for="Strike">Strike Price:</label>
+            <input type="number" step="0.0001" id="Strike" name="Strike" required>
+
+            <label for="Moneyness">
+                Moneyness: 
+                <span id="moneyness-latex">$$\frac{\text{Current Price} - \text{Strike Price}}{\text{Current Price}}\times 100$$</span>
+            </label>
+            <input type="number" step="0.0001" id="Moneyness" name="Moneyness" required>
+
+            <button type="submit">Compute</button>
+        </form>
+    </div>
 </body>
 </html>
