@@ -2,17 +2,91 @@
 <html>
 <head>
     <title>Result</title>
+    <style>
+        /* Background and Font */
+        body {
+            background: #f5f5dc; /* Beige Background */
+            color: #5a5a5a; /* Soft Dark Gray Text */
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Result Container */
+        .result-container {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        /* Title Styling */
+        .result-container h1 {
+            font-size: 1.5rem; /* Smaller Title */
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #4a4a4a;
+            text-transform: uppercase;
+            border-bottom: 1px solid #bdb76b; /* Muted Gold Border */
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* Paragraphs */
+        .result-container p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        /* Ordered List Styling */
+        .result-container ol {
+            text-align: left;
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .result-container ol li {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #6a6a6a;
+        }
+
+        /* Back to Calculator Link */
+        .result-container a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #bdb76b; /* Muted Gold */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .result-container a:hover {
+            background: #a89f58;
+        }
+    </style>
 </head>
 <body>
-    <h1>Result</h1>
-    <p>Euro Call Price: {{ price }}</p>
-    <p>Delta: {{ delta }}</p>
-    <ol>
-    <li>This is computed based on the calibrated Heston model as of <strong>January 24, 2025</strong>.</li>
-    <li> Dividends are not taken into account.</li>
-    <li> Short maturities are often inaccurate due to model limitation.  </li>
-    <li> This is for fun only and does not constitute any trading advice 😊. </li>
-    </ol>
-    <a href="/">Back to Calculator</a>
+    <div class="result-container">
+        <h1>Result</h1>
+        <p>Euro Call Price: {{ price }}</p>
+        <p>Delta: {{ delta }}</p>
+        <ol>
+            <li>Calibrated based on a surrogate-based Heston model as of <strong>January 28, 2025</strong>.</li>
+            <li>Dividends not taken into account.</li>
+            <li>Short maturities inaccurate due to model limitations.</li>
+            <li>For fun only and does not constitute any trading advice 😊.</li>
+        </ol>
+        <a href="/">Back to Calculator</a>
+    </div>
 </body>
 </html>
