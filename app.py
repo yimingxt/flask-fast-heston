@@ -10,9 +10,9 @@ from pandas.tseries.holiday import USFederalHolidayCalendar
 app = Flask(__name__)
 
 size_max = (50000, 252)
-np.random.seed(10)
+np.random.seed(1995)
 z1_seed = np.random.normal(size=size_max)
-np.random.seed(23)
+np.random.seed(1023)
 z2_seed = np.random.normal(size=size_max)
 
 def heston_call(x, dt = 1/252, M = 1, crn = True, div = 0.0):
@@ -43,7 +43,7 @@ def heston_call(x, dt = 1/252, M = 1, crn = True, div = 0.0):
     
     return (np.maximum(S[:,-1]-K, 0))*np.exp(-r*T)
 
-def heston_surrogate(x, n = 100):
+def heston_surrogate(x, n = 150):
     z_coef = np.array([0.01774259, 0.0093835 , 0.01506296, 0.00418113, 0.00747904,
                        0.01324557, 0.01370538, 0.01608237, 0.00875524, 0.01353247,
                        0.01884955, 0.00716181, 0.00467708, 0.00034029, 0.00017855,
