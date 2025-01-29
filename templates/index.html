@@ -4,13 +4,6 @@
     <title>Approximate real-time option price calculator based on Heston model</title>
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-        // Set the default value of "Date of Today" input field to today's date
-        document.addEventListener("DOMContentLoaded", function() {
-            var today = new Date().toISOString().split('T')[0];  // Get today's date in YYYY-MM-DD format
-            document.getElementById('Date of Today').value = today;  // Set the value to the input field
-        });
-    </script>
 </head>
 <body>
     <h1>Approximate Euro call price calculator</h1>
@@ -27,6 +20,10 @@
 
         <label for="Date of Today">Date of Today:</label>
         <input type="date" id="Date of Today" name="Date of Today" required>
+        <br><br>
+
+        <label for="Market Hour">Market Hour (9:30 - 16:00):</label>
+        <input type="number" id="Market Hour" name="Market Hour" step="0.5" min="9.5" max="16.0" required>
         <br><br>
         
         <label for="Maturity">Maturity:</label>
