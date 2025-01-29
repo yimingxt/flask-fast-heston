@@ -30,12 +30,12 @@
 
         /* Title Styling */
         .form-container h1 {
-            font-size: 1.5rem; /* Smaller Title */
+            font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 1rem;
             color: #4a4a4a;
             text-transform: uppercase;
-            border-bottom: 1px solid #bdb76b; /* Muted Gold Border */
+            border-bottom: 1px solid #bdb76b;
             padding-bottom: 5px;
             display: inline-block;
         }
@@ -62,7 +62,7 @@
         }
 
         input, select {
-            background: #fff5e1; /* Soft Beige Input Background */
+            background: #fff5e1;
             color: #4a4a4a;
             outline: none;
             border: 1px solid #d3c7a6;
@@ -75,7 +75,7 @@
 
         /* Button */
         button {
-            background: #bdb76b; /* Muted Gold */
+            background: #bdb76b;
             color: #ffffff;
             cursor: pointer;
             transition: background 0.3s;
@@ -94,6 +94,23 @@
             margin-bottom: 10px;
         }
     </style>
+
+    <script>
+        // Set default values when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            var today = new Date().toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
+            
+            var nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1); // Maturity set to 1 month later
+            var maturityDate = nextMonth.toISOString().split('T')[0];
+
+            document.getElementById('Date of Today').value = today; // Default to today
+            document.getElementById('Maturity').value = maturityDate; // Default maturity to 1 month later
+            document.getElementById('Market Hour').value = 16.0; // Default to market close time (16:00)
+            document.getElementById('Strike').value = 100; // Default strike price
+            document.getElementById('Moneyness').value = 0; // Default moneyness (ATM)
+        });
+    </script>
 </head>
 <body>
     <div class="form-container">
