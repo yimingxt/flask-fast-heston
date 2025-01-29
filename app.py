@@ -111,8 +111,8 @@ def index():
         # Extract form data from POST request
         company = request.form.get("Company")
         today = request.form.get("Date of Today")
-        hour = request.form.get("Market Hour")
         maturity = request.form.get("Maturity")
+        hour = float(request.form.get("Market Hour"))
         moneyness = float(request.form.get("Moneyness"))/100
         strike = float(request.form.get("Strike"))
         
