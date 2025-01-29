@@ -79,7 +79,7 @@ def heston_surrogate(x, n = 150):
 
 def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
     if ticker == 'AAPL':
-        params = [0.1007, 0.044, 0.01, 4.0345, -0.95, 0.144]
+        params = [0.1098, 0.0455, 0.0497, 15.4368, -0.8392, 0.342]
     elif ticker == 'AMZN':
         params = [0.1103, 0.045, 0.0868, 5.0093, -0.95, 0.3334]
     elif ticker == 'GOOGL':
@@ -87,7 +87,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
     elif ticker == 'MSFT':
         params = [0.0466, 0.045, 0.0504, 2.9866, -0.95, 0.137]
     elif ticker == 'NVDA':
-        params = [0.1791, 0.045, 0.2197, 37.1974, -0.8148, 0.8852]
+        params = [0.212, 0.0455, 0.2515, 37.2135, -0.95, 0.1158]
     else:
         return 'Company information not available!'
     spot = strike/(1-moneyness)
@@ -101,7 +101,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-3):
 def count_us_trading_days(start_date, end_date):
     us_bd = CustomBusinessDay(calendar=USFederalHolidayCalendar())
     trading_days = pd.date_range(start=start_date, end=end_date, freq=us_bd)
-    return len(trading_days)
+    return len(trading_days) - 1
     
 
 # Create an API endpoint
