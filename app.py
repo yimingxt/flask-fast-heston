@@ -111,7 +111,7 @@ def index():
         # Extract form data from POST request
         company = request.form.get("Company")
         today = request.form.get("Date of Today")
-        hour = request.form.get()
+        hour = request.form.get("Market Hour")
         maturity = request.form.get("Maturity")
         moneyness = float(request.form.get("Moneyness"))/100
         strike = float(request.form.get("Strike"))
@@ -119,7 +119,7 @@ def index():
         # Call your function with the extracted data
         today_date = datetime.strptime(today, "%Y-%m-%d")
         maturity_date = datetime.strptime(maturity, "%Y-%m-%d")
-        time_to_maturity = count_us_trading_days(today_date, maturity_date)/252
+        time_to_maturity = max((count_us_trading_days(today_date, maturity_date)-(hour-9.5)/6.5)/252, 0)
         P, D = fast_heston(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
