@@ -125,7 +125,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     x = np.array([moneyness, maturity, strike] + params)
     x_plus = np.array([moneyness + delta, maturity, strike] + params)
     x_minus = np.array([moneyness - delta, maturity, strike] + params)
-    return heston_surrogate(x), (heston_surrogate(x_plus) - heston_surrogate(x_minus))/(2*delta)*K/(S0**2)
+    return heston_surrogate(x), (heston_surrogate(x_plus) - heston_surrogate(x_minus))/(2*delta)*strike/(spot**2)
 
 
 def count_us_trading_days(start_date, end_date):
