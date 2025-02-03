@@ -232,7 +232,8 @@ def index():
         P_sz, D_sz = fast_sz(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
-        return render_template("result.html", price=np.round(P_h,2), delta=np.round(D_h,5))
+        return render_template("result.html", price_h=np.round(P_h,2), delta_h=np.round(D_h,5), \
+                                price_sz=np.round(P_sz,2), delta_sz=np.round(D_sz,5))
     else:
         # Handle GET request (show the form to the user)
         return render_template("index.html")
