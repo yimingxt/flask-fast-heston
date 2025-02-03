@@ -43,6 +43,37 @@ def heston_call(x, dt = 1/252, M = 1, crn = True, div = 0.0):
     
     return (np.maximum(S[:,-1]-K, 0))*np.exp(-r*T)
 
+
+def sz_call(x, dt = 1/252, M = 1, crn = True, div = 0.0):
+    moneyness, T, K, V0, r, theta, kappa, rho, sigma = x
+    S0 = K/(1-moneyness)
+    sqrt_dt = np.sqrt(dt)
+    N = int(252*T)
+    
+    # initialize arrays to store simulation results
+    S = np.zeros((M, N+1))
+    V = np.zeros((M, N+1))
+    S[:,0] = S0
+    V[:,0] = V0
+
+    # crn is used to generate random basis functions
+    if crn == True:
+        z1 = z1_seed[:M,:N]
+        z1_1 = z2_seed[:M,:N]
+        z2 = rho * z1 + np.sqrt(1 - rho**2) * z1_1
+    else:
+        z1 = np.random.normal(size=(M, N))
+        z1_1 = np.random.normal(size=(M, N))
+        z2 = rho * z1 + np.sqrt(1 - rho**2) * z1_1
+
+    for t in range(1, N+1):
+        S[:,t] = S[:,t-1] * np.exp((r - div- 0.5 * V[:,t-1]**2) * dt + V[:,t-1] * sqrt_dt * z1[:,t-1])
+        V[:,t] = np.maximum(V[:,t-1] + kappa * (theta - V[:,t-1]) * dt + sigma * sqrt_dt * z2[:,t-1], 0)
+  
+    return (np.maximum(S[:,-1]-K, 0))*np.exp(-r*T) 
+    
+
+
 def heston_surrogate(x, n = 200):
     z_coef = np.array([0.0057066 , 0.00478367, 0.00024394, 0.00451472, 0.00030314,
                        0.00326808, 0.00100725, 0.00281425, 0.00183978, 0.00023513,
@@ -87,6 +118,54 @@ def heston_surrogate(x, n = 200):
     res = np.sum(heston_call(x, M = n)*z_coef)
     return res
 
+
+
+def sz_surrogate(x, n = 200):
+    z_coef = np.array([0.00124779, 0.00583825, 0.00019329, 0.00258611, 0.00169873,
+                       0.0067665 , 0.0001868 , 0.00757735, 0.00622501, 0.00202322,
+                       0.00056712, 0.00928795, 0.00119607, 0.00654943, 0.00329475,
+                       0.0123998 , 0.00568222, 0.00447696, 0.01446072, 0.00176966,
+                       0.00019008, 0.00043545, 0.00250969, 0.00737779, 0.00510473,
+                       0.00542673, 0.00635494, 0.0150055 , 0.00927748, 0.00029713,
+                       0.00027007, 0.01297657, 0.00791328, 0.00168943, 0.0021313 ,
+                       0.01004764, 0.00271458, 0.00696129, 0.0017993 , 0.00377827,
+                       0.00800393, 0.00018681, 0.00420382, 0.00110224, 0.0028847 ,
+                       0.00605165, 0.00943116, 0.00574683, 0.01052439, 0.01026636,
+                       0.00699577, 0.00093637, 0.00485298, 0.00453493, 0.00281322,
+                       0.00535184, 0.01391964, 0.00733734, 0.0035826 , 0.00698951,
+                       0.00401036, 0.00683722, 0.02105113, 0.00035142, 0.00931716,
+                       0.00036981, 0.00210519, 0.0001868 , 0.00395841, 0.00615566,
+                       0.00642252, 0.00107994, 0.00386638, 0.00407302, 0.0006089 ,
+                       0.0001868 , 0.0124536 , 0.01189873, 0.01350747, 0.00782332,
+                       0.00736644, 0.00086021, 0.00752226, 0.00665079, 0.01045024,
+                       0.01851464, 0.00616945, 0.00027678, 0.00197792, 0.00088144,
+                       0.00383406, 0.00886543, 0.00041603, 0.00602259, 0.00945814,
+                       0.00018773, 0.00279623, 0.00390053, 0.00752404, 0.00412501,
+                       0.00018681, 0.00874756, 0.00818009, 0.00390917, 0.00400371,
+                       0.00048042, 0.00529128, 0.0039202 , 0.00441598, 0.01033936,
+                       0.0015538 , 0.00605295, 0.00553568, 0.00312222, 0.00173642,
+                       0.00762856, 0.00543628, 0.00536571, 0.00267716, 0.00427762,
+                       0.00852412, 0.00371872, 0.00476923, 0.00290748, 0.00499616,
+                       0.00813864, 0.00201575, 0.00884955, 0.00095083, 0.00730745,
+                       0.00592431, 0.00285917, 0.00079463, 0.00741117, 0.0043595 ,
+                       0.00446346, 0.01123706, 0.00845682, 0.00730182, 0.00559293,
+                       0.00699278, 0.00179953, 0.00945673, 0.00018677, 0.00381956,
+                       0.00495495, 0.01199814, 0.00027101, 0.00166377, 0.00582786,
+                       0.00268569, 0.00443375, 0.00336041, 0.00664439, 0.00902291,
+                       0.00585766, 0.0092988 , 0.00230198, 0.00018681, 0.00617371,
+                       0.00181544, 0.00185264, 0.00467852, 0.00489479, 0.00633766,
+                       0.00584319, 0.00925747, 0.00018678, 0.00137186, 0.00903261,
+                       0.00050008, 0.00674512, 0.00519933, 0.00210483, 0.00431438,
+                       0.00018818, 0.00225152, 0.0071895 , 0.00278242, 0.0028085 ,
+                       0.01397485, 0.0029832 , 0.00241339, 0.01564344, 0.00694421,
+                       0.00030505, 0.00423774, 0.00133608, 0.00018681, 0.00210447,
+                       0.002618  , 0.00114789, 0.00495581, 0.009156  , 0.00136239,
+                       0.00276412, 0.00116002, 0.00225772, 0.00231166, 0.00863937])
+    res = np.sum(sz_call(x, M = n)*z_coef)
+    return res
+
+
+
 def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     if ticker == 'AAPL':
         params = [0.0508, 0.045, 0.1318, 0.7712, -0.4744, 0.4438]
@@ -99,12 +178,32 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     elif ticker == 'NVDA':
         params = [0.851, 0.0455, 0.2291, 20.3732, -0.3925, 1.0]
     else:
-        return 'Company information not available!'
+        return 'Ticker information not available!'
     spot = strike/(1-moneyness)
     x = np.array([moneyness, maturity, strike] + params)
     x_plus = np.array([moneyness + delta, maturity, strike] + params)
     x_minus = np.array([moneyness - delta, maturity, strike] + params)
     return heston_surrogate(x), (heston_surrogate(x_plus) - heston_surrogate(x_minus))/(2*delta)*strike/(spot**2)
+
+
+def fast_sz(maturity, moneyness, strike, ticker, delta = 1e-4):
+    if ticker == 'AAPL':
+        params = [0.2229, 0.0455, 0.423, 0.2336, -0.4874, 0.2297]
+    elif ticker == 'AMZN':
+        params = [0.3364, 0.0455, 0.2123, 1.1733, -0.3994, 0.2678]
+    elif ticker == 'GOOGL':
+        params = [0.3098, 0.0455, 0.2242, 1.0667, -0.2703, 0.2491]
+    elif ticker == 'MSFT':
+        params = [0.2271, 0.045, 0.1316, 3.5622, -0.2043, 0.462]
+    elif ticker == 'NVDA':
+        params = [1.64, 0.0455, 0.3656, 37.2481, -0.4134, 1.3608]
+    else:
+        return 'Ticker information not available!'
+    spot = strike/(1-moneyness)
+    x = np.array([moneyness, maturity, strike] + params)
+    x_plus = np.array([moneyness + delta, maturity, strike] + params)
+    x_minus = np.array([moneyness - delta, maturity, strike] + params)
+    return sz_surrogate(x), (sz_surrogate(x_plus) - sz_surrogate(x_minus))/(2*delta)*strike/(spot**2)
 
 
 def count_us_trading_days(start_date, end_date):
@@ -129,10 +228,11 @@ def index():
         today_date = datetime.strptime(today, "%Y-%m-%d")
         maturity_date = datetime.strptime(maturity, "%Y-%m-%d")
         time_to_maturity = max((count_us_trading_days(today_date, maturity_date)-(hour-9.5)/6.5)/252, 0)
-        P, D = fast_heston(time_to_maturity, moneyness, strike, company)
+        P_h, D_h = fast_heston(time_to_maturity, moneyness, strike, company)
+        P_sz, D_sz = fast_sz(time_to_maturity, moneyness, strike, company)
         
         # Return the result to the user
-        return render_template("result.html", price=np.round(P,2), delta=np.round(D,5))
+        return render_template("result.html", price=np.round(P_h,2), delta=np.round(D_h,5))
     else:
         # Handle GET request (show the form to the user)
         return render_template("index.html")
