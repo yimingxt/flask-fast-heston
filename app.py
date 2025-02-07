@@ -104,9 +104,9 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     if ticker == 'AAPL':
         params = [0.0505, 0.0665, 0.01, 4.0353, -0.9497, 0.0883]
     elif ticker == 'AMZN':
-        params = [0.1117, 0.0455, 0.0713, 0.9648, -0.4538, 0.3708]
+        params = [0.4969, 0.045, 0.018, 45.0695, 0.7871, 0.0161]
     elif ticker == 'GOOGL':
-        params = [0.1708, 0.0455, 0.0764, 40.938, -0.6361, 0.7]
+        params = [0.0725, 0.044, 0.0641, 4.0317, -0.948, 0.01]
     elif ticker == 'MSFT':
         params = [0.0849, 0.0455, 0.0471, 41.2207, -0.6826, 0.8639]
     elif ticker == 'NVDA':
