@@ -10,7 +10,7 @@ from pandas.tseries.holiday import USFederalHolidayCalendar
 app = Flask(__name__)
 
 n_intra = 4
-size_max = (50000, 252*n_intra)
+size_max = (10000, 252*n_intra)
 np.random.seed(321)
 z1_seed = np.random.normal(size=size_max)
 np.random.seed(42)
@@ -108,7 +108,7 @@ def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     elif ticker == 'GOOGL':
         params = [0.0725, 0.044, 0.0641, 4.0317, -0.948, 0.01]
     elif ticker == 'MSFT':
-        params = [0.0849, 0.0455, 0.0471, 41.2207, -0.6826, 0.8639]
+        params = [0.0745, 0.045, 0.0274, 37.9282, 0.4342, 0.01]
     elif ticker == 'NVDA':
         params = [0.851, 0.0455, 0.2291, 20.3732, -0.3925, 1.0]
     else:
