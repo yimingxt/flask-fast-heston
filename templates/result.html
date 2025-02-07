@@ -39,18 +39,13 @@
         }
 
         /* Model Results Layout */
-        .model-results {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-
         .model {
             background: #fff5e1;
             padding: 15px;
             border-radius: 10px;
-            width: 45%;
+            width: 100%;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+            margin-top: 15px;
         }
 
         .model h2 {
@@ -99,25 +94,17 @@
     <div class="result-container">
         <h1>Result</h1>
 
-        <div class="model-results">
-            <div class="model">
-                <h2>Heston Model</h2>
-                <p>Euro Call Price: {{ price_h }}</p>
-                <p>Delta: {{ delta_h }}</p>
-            </div>
-            
-            <div class="model">
-                <h2>Schöbel–Zhu Model</h2>
-                <p>Euro Call Price: {{ price_sz }}</p>
-                <p>Delta: {{ delta_sz }}</p>
-            </div>
+        <div class="model">
+            <h2>Heston Model</h2>
+            <p>Euro Call Price: {{ price_h }}</p>
+            <p>Delta: {{ delta_h }}</p>
         </div>
 
         <ol>
-            <li>Calibrated based on surrogate-based Heston and Schöbel-Zhu models as of <strong>Feb 2, 2025</strong>.</li>
+            <li>Calibrated based on a surrogate-based Heston model as of <strong>Feb 2, 2025</strong>.</li>
             <li>Dividends not taken into account.</li>
             <li>Short maturities inaccurate due to model limitations.</li>
-            <li>For fun only and does not constitute any trading advice 😊.</li>
+            <li>For fun only 😊.</li>
         </ol>
 
         <a href="/">Back to Calculator</a>
