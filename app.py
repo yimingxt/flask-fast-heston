@@ -102,7 +102,7 @@ def heston_surrogate(x, n = 200):
 
 def fast_heston(maturity, moneyness, strike, ticker, delta = 1e-4):
     if ticker == 'AAPL':
-        params = [0.0505, 0.0665, 0.01, 4.0353, -0.9497, 0.0883]
+        params = [0.0537, 0.045, 0.0232, 4.0664, -0.99, 0.2153]
     elif ticker == 'AMZN':
         params = [0.4969, 0.045, 0.018, 45.0695, 0.7871, 0.0161]
     elif ticker == 'GOOGL':
